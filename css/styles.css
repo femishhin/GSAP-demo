@@ -1,0 +1,186 @@
+/* Custom Typography and Animation Styles for AURA & AERO Showcases */
+
+/* Ensure smooth, unhindered mouse wheel, trackpad, and keyboard scrolling */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100%;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: #cdc5bc #f1eee7;
+}
+
+.dark html, html.dark {
+  scrollbar-color: #343533 #131412;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
+/* Luxury slim scrollbar (WebKit / Chromium / Edge / Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1eee7;
+}
+
+.dark ::-webkit-scrollbar-track, html.dark ::-webkit-scrollbar-track {
+  background: #131412;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cdc5bc;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94492a;
+}
+
+.dark ::-webkit-scrollbar-thumb, html.dark ::-webkit-scrollbar-thumb {
+  background: #343533;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover, html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #bef532;
+}
+
+/* Luxury Custom Cursor (Desktop Only) */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #94492a;
+  border-radius: 50%;
+  pointer-events: none !important;
+  user-select: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease, transform 0.15s ease;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(148, 73, 42, 0.45);
+  border-radius: 50%;
+  pointer-events: none !important;
+  user-select: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.cursor-hover .custom-cursor-ring {
+  width: 56px;
+  height: 56px;
+  background-color: rgba(148, 73, 42, 0.1);
+  border-color: #94492a;
+}
+
+body.cursor-hover .custom-cursor-dot {
+  transform: translate(-50%, -50%) scale(1.4);
+}
+
+/* Sneaker Page Neon Cursor Variant */
+.dark .custom-cursor-dot {
+  background-color: #bef532;
+}
+
+.dark .custom-cursor-ring {
+  border-color: rgba(190, 245, 50, 0.5);
+}
+
+.dark.cursor-hover .custom-cursor-ring {
+  background-color: rgba(190, 245, 50, 0.15);
+  border-color: #bef532;
+}
+
+/* Demo Switcher Banner — Docked Bottom Right (Zero Header Conflict) */
+.demo-switcher-bar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(28, 28, 24, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(205, 197, 188, 0.4);
+  border-radius: 9999px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fcf9f3;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.demo-switcher-bar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.35);
+}
+
+.demo-switcher-bar a {
+  padding: 5px 12px;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.demo-switcher-bar a.active {
+  background: #94492a;
+  color: #ffffff;
+}
+
+.dark .demo-switcher-bar a.active {
+  background: #bef532;
+  color: #0d0e0d;
+}
+
+.demo-switcher-bar a:not(.active):hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fe9d78;
+}
+
+.dark .demo-switcher-bar a:not(.active):hover {
+  color: #bef532;
+}
+
+/* Magnetic Button Utility */
+.magnetic-btn {
+  will-change: transform;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Smooth Focus States */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid #94492a;
+  outline-offset: 3px;
+}
+
+.dark a:focus-visible, .dark button:focus-visible, .dark input:focus-visible, .dark textarea:focus-visible {
+  outline: 2px solid #bef532;
+  outline-offset: 3px;
+}

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AURA // Architectural Furniture Showcase — GSAP Demo</title>
+  <meta content="Spatial sculpture and tactile brutalist forms crafted with GSAP and ScrollTrigger." name="description"/>
+  
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Base Layout & Scroll Setup -->
+  <style>
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100%;
+      width: 100%;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      min-height: 100%;
+    }
+    main > :first-child { margin-top: 0 !important; }
+    main > :last-child { margin-bottom: 0 !important; }
+  </style>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-surface-variant": "#4b463f",
+            "on-surface": "#1c1c18",
+            "background": "#fcf9f3",
+            "outline-variant": "#cdc5bc",
+            "on-primary-fixed-variant": "#494643",
+            "surface-container-highest": "#e5e2dc",
+            "surface-variant": "#e5e2dc",
+            "on-background": "#1c1c18",
+            "surface-container-low": "#f6f3ed",
+            "surface-dim": "#dcdad4",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#9c7f5e",
+            "on-error-container": "#93000a",
+            "surface-container": "#f1eee7",
+            "surface-bright": "#fcf9f3",
+            "primary-fixed": "#e7e1dc",
+            "surface": "#fcf9f3",
+            "secondary-container": "#fe9d78",
+            "on-primary": "#ffffff",
+            "on-secondary-fixed-variant": "#773215",
+            "on-secondary-fixed": "#370e00",
+            "secondary-fixed": "#ffdbce",
+            "on-error": "#ffffff",
+            "inverse-surface": "#31302d",
+            "surface-tint": "#615e5a",
+            "secondary": "#94492a",
+            "tertiary-fixed": "#ffddb8",
+            "surface-container-high": "#ebe8e2",
+            "tertiary-container": "#291802",
+            "on-tertiary-fixed": "#291802",
+            "tertiary-fixed-dim": "#e3c19c",
+            "inverse-primary": "#cbc5c0",
+            "outline": "#7c766e",
+            "on-secondary": "#ffffff",
+            "on-primary-fixed": "#1d1b18",
+            "on-secondary-container": "#773316",
+            "on-primary-container": "#87837f",
+            "on-tertiary-fixed-variant": "#5a4226",
+            "inverse-on-surface": "#f3f0ea",
+            "tertiary": "#000000",
+            "primary-container": "#1d1b18",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#ffb59a",
+            "on-tertiary": "#ffffff",
+            "primary": "#000000",
+            "error": "#ba1a1a",
+            "primary-fixed-dim": "#cbc5c0"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "space-xl": "3rem",
+            "margin": "4rem",
+            "margin-mobile": "1.25rem",
+            "space-lg": "1.75rem",
+            "gutter": "1.5rem",
+            "margin-tablet": "2rem",
+            "space-xs": "0.25rem",
+            "gutter-mobile": "1rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem"
+          },
+          fontFamily: {
+            "headline-lg-mobile": ["Newsreader", "serif"],
+            "headline-sm": ["Hanken Grotesk", "sans-serif"],
+            "label-md": ["Space Grotesk", "monospace"],
+            "body-lg": ["Hanken Grotesk", "sans-serif"],
+            "headline-md": ["Newsreader", "serif"],
+            "headline-lg": ["Newsreader", "serif"],
+            "display-xl-mobile": ["Newsreader", "serif"],
+            "label-sm": ["Space Grotesk", "monospace"],
+            "body-md": ["Hanken Grotesk", "sans-serif"],
+            "body-sm": ["Hanken Grotesk", "sans-serif"],
+            "display-xl": ["Newsreader", "serif"]
+          },
+          fontSize: {
+            "headline-lg-mobile": ["32px", { lineHeight: "38px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "headline-sm": ["22px", { lineHeight: "30px", letterSpacing: "0em", fontWeight: "500" }],
+            "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "500" }],
+            "body-lg": ["18px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "headline-md": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "headline-lg": ["48px", { lineHeight: "54px", letterSpacing: "-0.02em", fontWeight: "400" }],
+            "display-xl-mobile": ["44px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "300" }],
+            "label-sm": ["10px", { lineHeight: "14px", letterSpacing: "0.12em", fontWeight: "600" }],
+            "body-md": ["15px", { lineHeight: "24px", letterSpacing: "0em", fontWeight: "400" }],
+            "body-sm": ["13px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "400" }],
+            "display-xl": ["72px", { lineHeight: "76px", letterSpacing: "-0.03em", fontWeight: "300" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css"/>
+
+  <!-- GSAP Core & Plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-secondary selection:text-on-secondary">
+  
+  <!-- Interactive Custom Cursor (Desktop) -->
+  <div class="custom-cursor-dot hidden lg:block"></div>
+  <div class="custom-cursor-ring hidden lg:block"></div>
+
+  <!-- Live Demo Switcher Floating Pill — DOCKED BOTTOM-RIGHT -->
+  <div class="demo-switcher-bar">
+    <span class="text-white/60">Demo:</span>
+    <a href="index.html" class="active">🏛️ AURA Showcase</a>
+    <a href="aero.html">👟 AERO Sneaker</a>
+  </div>
+
+  <!-- FIXED TOP HEADER -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(28,26,23,0.04)]">
+    <div class="h-20 max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin flex items-center justify-between">
+      
+      <!-- Vector Brand Logo & Text -->
+      <div class="flex items-center gap-space-md">
+        <svg class="h-8 w-8 flex-shrink-0" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AURA Architectural Forms Logo">
+          <path d="M6 30V14C6 7.373 11.373 2 18 2C24.627 2 30 7.373 30 14V30" stroke="#1c1c18" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M12 30V15C12 11.686 14.686 9 18 9C21.314 9 24 11.686 24 15V30" stroke="#94492a" stroke-width="2" stroke-linecap="round"/>
+          <line x1="4" y1="30" x2="32" y2="30" stroke="#1c1c18" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="18" cy="19" r="2.5" fill="#94492a"/>
+        </svg>
+        <a class="flex flex-col leading-none" href="#">
+          <span class="font-label-md text-label-md uppercase tracking-[0.2em] text-on-surface font-bold">AURA</span>
+          <span class="font-label-sm text-label-sm uppercase tracking-[0.28em] text-on-surface-variant">Architectural Forms</span>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-space-lg">
+        <a class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-colors" href="#studio">Studio</a>
+        <a class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-colors" href="#collection">Objects &amp; Furniture</a>
+        <a class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-colors" href="#specifications">Materials &amp; Craft</a>
+        <a class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-colors" href="#acquire-section">Acquire</a>
+      </nav>
+
+      <!-- CTA and Profile -->
+      <div class="flex items-center gap-space-md">
+        <a class="magnetic-btn hidden sm:inline-flex items-center justify-center bg-primary text-on-primary px-6 py-3 font-label-md text-label-md uppercase tracking-widest hover:bg-secondary hover:text-on-secondary transition-colors" href="#acquire-section">
+          Acquire Pieces
+        </a>
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="w-full pt-20 bg-surface min-h-[calc(100vh-5rem)]">
+    <div class="flex flex-col w-full">
+
+      <!-- SECTION 1: HERO SHOWCASE (KORD 01) -->
+      <section class="relative w-full overflow-hidden bg-surface pb-space-xl">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin pt-space-lg">
+          
+          <!-- Top Sub-Bar / Catalog Index Header -->
+          <div class="catalog-subbar flex flex-wrap items-center justify-between gap-space-sm pb-space-md border-b border-outline-variant/30 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-[0.2em]">
+            <div class="flex items-center gap-space-sm">
+              <span class="inline-block w-2 h-2 bg-secondary"></span>
+              <span>OBJECT SERIES 2026 // MONOLITHIC CRAFT</span>
+            </div>
+            <div class="flex items-center gap-space-lg">
+              <span>CATALOG NO. 0824-A</span>
+              <span class="hidden sm:inline">PROVENANCE: COPENHAGEN • KYOTO</span>
+              <span class="text-on-surface font-semibold">EDITION: 18 / 25 AVAILABLE</span>
+            </div>
+          </div>
+
+          <!-- Asymmetric Hero Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mt-space-lg items-center">
+            
+            <!-- Left: Typography & Curatorial Narrative (5 Cols) -->
+            <div class="lg:col-span-5 flex flex-col justify-center space-y-space-lg z-10">
+              <div class="space-y-space-sm">
+                <span class="hero-badge font-label-md text-label-md uppercase tracking-[0.24em] text-secondary font-semibold block">
+                  Flagship Release — Edition 01
+                </span>
+                
+                <h1 class="hero-headline font-headline-lg text-headline-lg lg:text-display-xl font-normal text-on-surface leading-[1.04] tracking-tight">
+                  Form Beyond <br/>
+                  <em class="italic font-headline-lg font-light text-secondary">Function.</em>
+                </h1>
+              </div>
+
+              <p class="hero-description font-body-lg text-body-lg text-on-surface-variant leading-relaxed font-light max-w-lg">
+                Sculpted tension meets tectonic calm. Hand-stitched full-grain cognac saddle leather suspended over continuous-bend carbon steel tube, anchored with hand-shaped oiled Danish white oak armrests.
+              </p>
+
+              <!-- Interactive Spec Micro-HUD -->
+              <div class="hero-hud bg-surface-container-low p-space-md space-y-space-sm shadow-sm">
+                <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
+                  <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Model</span>
+                  <span class="font-label-md text-label-md uppercase text-on-surface font-semibold">KORD // 01 LOUNGE</span>
+                </div>
+                <div class="grid grid-cols-3 gap-space-sm pt-1 text-center">
+                  <div class="bg-surface p-space-xs">
+                    <span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Width</span>
+                    <span class="counter-width font-label-md text-label-md font-bold text-on-surface">840 MM</span>
+                  </div>
+                  <div class="bg-surface p-space-xs">
+                    <span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Depth</span>
+                    <span class="counter-depth font-label-md text-label-md font-bold text-on-surface">920 MM</span>
+                  </div>
+                  <div class="bg-surface p-space-xs">
+                    <span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Net Mass</span>
+                    <span class="counter-weight font-label-md text-label-md font-bold text-on-surface">18.4 KG</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hero Action Vectors -->
+              <div class="hero-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm pt-space-xs">
+                <a class="magnetic-btn bg-primary text-on-primary px-8 py-4 font-label-md text-label-md uppercase tracking-[0.2em] text-center hover:bg-secondary transition-colors duration-200 shadow-md" href="#acquire-section">
+                  Inquire for Acquisition
+                </a>
+                <a class="magnetic-btn bg-surface-container-high text-on-surface px-6 py-4 font-label-md text-label-md uppercase tracking-[0.16em] text-center hover:bg-surface-dim transition-colors duration-200" href="#specifications">
+                  View Architectural Spec
+                </a>
+              </div>
+
+              <div class="flex items-center gap-4 text-on-surface-variant pt-2 font-label-sm text-label-sm uppercase tracking-widest">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 100% Organic Vegetable Tan
+                </span>
+                <span class="text-outline-variant">•</span>
+                <span>Bespoke Lead Time: 6-8 Wks</span>
+              </div>
+            </div>
+
+            <!-- Right: Monolithic Product Showcase (7 Cols) -->
+            <div class="lg:col-span-7 relative">
+              <div class="hero-image-card relative bg-surface-container-low shadow-xl p-space-sm sm:p-space-md lg:p-space-lg overflow-hidden group">
+                
+                <!-- Structural Datum Watermark Label -->
+                <div class="absolute top-6 left-6 z-20 flex items-center gap-3">
+                  <span class="font-label-sm text-label-sm uppercase tracking-[0.28em] bg-surface/90 backdrop-blur-md px-3 py-1.5 text-on-surface font-semibold shadow-sm">
+                    FIG. 01 — ISOMETRIC CADENCE
+                  </span>
+                </div>
+
+                <!-- Compass / Coordinates Badge -->
+                <div class="absolute bottom-6 right-6 z-20 hidden sm:flex items-center gap-2 bg-primary/95 text-on-primary px-4 py-2 font-label-sm text-label-sm uppercase tracking-widest shadow-lg">
+                  <span class="material-symbols-outlined text-[16px] text-secondary-container">architecture</span>
+                  <span>55°42'31"N 12°35'44"E — ATELIER REF</span>
+                </div>
+
+                <!-- Image Frame -->
+                <div class="w-full aspect-[4/4] sm:aspect-[4/3] lg:aspect-[1/1] overflow-hidden bg-surface-container-high flex items-center justify-center">
+                  <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" alt="Photorealistic studio shot of an architectural brutalist lounge chair called KORD 01. Full-grain cognac brown leather sling seat with subtle weathered texture, suspended seamlessly on a matte black architectural tubular steel frame with refined oiled natural oak armrests." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqP_JCAINzlWSo5FKmwjCNxP5gzWlqgBzmhHu6SeSB8mP6fd6TgWbBlHGfsdH6F3csIbxcekXYNSdjMqvZexofTZxxbzUOAiJMYKwaRGR8WciJkyQaq2db5Pqg8QCUG-HREFrSghE8SoroFOmZetDmcQbiK1MsLDWjpILrUkUIXsvYXiZAyw5XeYg12yT9pvVHtlmS1kW2TtehFBnS1wWZzjH-wP27VjQ7DHSBvixE"/>
+                </div>
+
+                <!-- Footnote Datum -->
+                <div class="mt-space-sm flex flex-wrap items-center justify-between gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase tracking-widest">
+                  <span>FINISH: COGNAC ANILINE LEATHER // CHARCOAL TUBE</span>
+                  <span>TENSION RATING: 280 NM</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: DESIGN PHILOSOPHY & SPATIAL STUDY -->
+      <section class="philosophy-section w-full bg-surface-container py-space-xl" id="studio">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin">
+          
+          <!-- Section Header -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-end pb-space-lg border-b border-outline-variant/30">
+            <div class="lg:col-span-8 space-y-space-xs">
+              <span class="font-label-sm text-label-sm uppercase tracking-[0.24em] text-secondary font-semibold">Tectonic Principle — Studio Statement</span>
+              <h2 class="font-headline-lg text-headline-lg font-normal text-on-surface tracking-tight">
+                Every curve possesses structural gravity.
+              </h2>
+            </div>
+            <div class="lg:col-span-4 text-on-surface-variant font-body-md text-body-md font-light">
+              We reject cosmetic veneer and concealed fasteners. True luxury lives in uncompromised mass, exposed joinery, and materials that mature alongside the architecture they inhabit.
+            </div>
+          </div>
+
+          <!-- 3 Pillars Grid -->
+          <div class="pillar-grid grid grid-cols-1 md:grid-cols-3 gap-gutter pt-space-lg">
+            
+            <!-- Pillar 01 -->
+            <div class="pillar-card bg-surface p-space-lg flex flex-col justify-between space-y-space-md shadow-sm">
+              <div class="space-y-space-sm">
+                <div class="flex items-center justify-between text-secondary">
+                  <span class="font-label-md text-label-md uppercase tracking-[0.2em] font-bold">01 // TACTILITY</span>
+                  <span class="material-symbols-outlined text-[20px]">mobile_hand_off</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">Tactile Duality</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant font-light">
+                  Raw Italian travertine and oiled Nordic bog oak juxtaposed against hand-softened equestrian harness hides. Surfaces designed to engage physical touch before the eye registers form.
+                </p>
+              </div>
+              <div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">
+                <span>Surface Sheen</span>
+                <span class="text-on-surface font-bold">12° Matte Finish</span>
+              </div>
+            </div>
+
+            <!-- Pillar 02 -->
+            <div class="pillar-card bg-surface p-space-lg flex flex-col justify-between space-y-space-md shadow-sm">
+              <div class="space-y-space-sm">
+                <div class="flex items-center justify-between text-secondary">
+                  <span class="font-label-md text-label-md uppercase tracking-[0.2em] font-bold">02 // HONESTY</span>
+                  <span class="material-symbols-outlined text-[20px]">architecture</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">Structural Honesty</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant font-light">
+                  Zero adhesives in load-bearing vectors. Milled lap joints, brass shear pins, and tensioned saddle stitching make mechanical equilibrium visually transparent and permanent.
+                </p>
+              </div>
+              <div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">
+                <span>Fastener Schema</span>
+                <span class="text-on-surface font-bold">Exposed Bronze Pins</span>
+              </div>
+            </div>
+
+            <!-- Pillar 03 -->
+            <div class="pillar-card bg-surface p-space-lg flex flex-col justify-between space-y-space-md shadow-sm">
+              <div class="space-y-space-sm">
+                <div class="flex items-center justify-between text-secondary">
+                  <span class="font-label-md text-label-md uppercase tracking-[0.2em] font-bold">03 // PATINA</span>
+                  <span class="material-symbols-outlined text-[20px]">hourglass_top</span>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">Ageless Patina</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant font-light">
+                  We treat furniture not as inert consumer products, but as living geological and biological specimens. Sunlight, hand oils, and air circulation continuously enrich each plane.
+                </p>
+              </div>
+              <div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">
+                <span>Lifecycle Index</span>
+                <span class="text-on-surface font-bold">Centennial Longevity</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Studio Technical Index Strip -->
+          <div class="mt-space-lg bg-surface-container-high p-space-md grid grid-cols-2 md:grid-cols-4 gap-space-md items-center">
+            <div>
+              <span class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Timber Provenance</span>
+              <span class="font-label-md text-label-md uppercase text-on-surface font-semibold">PEFC Certified Jutland Oak</span>
+            </div>
+            <div>
+              <span class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Stone Quarry Base</span>
+              <span class="font-label-md text-label-md uppercase text-on-surface font-semibold">Tivoli Classic Vein, IT</span>
+            </div>
+            <div>
+              <span class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Tensile Harness Hides</span>
+              <span class="font-label-md text-label-md uppercase text-on-surface font-semibold">Vegetable Tanned Tärnsjö</span>
+            </div>
+            <div>
+              <span class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Studio Batch</span>
+              <span class="font-label-md text-label-md uppercase text-secondary font-bold">Limited 2026 Production</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 3: FLAGSHIP FURNITURE WORKS GALLERY -->
+      <section class="gallery-section w-full bg-surface py-space-xl" id="collection">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin space-y-space-xl">
+          
+          <!-- Catalog Section Header -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm border-b border-outline-variant/30 pb-space-md">
+            <div>
+              <span class="font-label-sm text-label-sm uppercase tracking-[0.24em] text-secondary font-semibold">Monographic Collection</span>
+              <h2 class="font-headline-lg text-headline-lg font-normal text-on-surface">Curated Spatial Sculptures</h2>
+            </div>
+            <div class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">
+              ARCHITECTURAL OBJECTS // EDITIONS 2026
+            </div>
+          </div>
+
+          <!-- WORK ITEM 01: STELAE DINING TABLE (MONUMENTAL SHOWCASE) -->
+          <div class="stelae-card grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center bg-surface-container-low p-space-md sm:p-space-lg shadow-sm">
+            
+            <!-- Left Image (7 cols) -->
+            <div class="lg:col-span-7 overflow-hidden bg-surface-container-high aspect-[16/11] relative group">
+              <div class="absolute top-4 left-4 z-10 bg-primary/90 text-on-primary px-3 py-1 font-label-sm text-label-sm uppercase tracking-widest">
+                COLLECTION REFERENCE — STELAE 04
+              </div>
+              <img class="stelae-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Monumental brutalist dining table named STELAE 04 in an open warm architectural interior. Table features two heavy, sculptural split-monolith pedestals carved from raw textured Italian silver-vein travertine stone supporting a thick, long solid fumed smoked dark oak timber tabletop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMh_F_MVFh887dZ2Umg1GlKYKI0cAwDykSFeDiFPa2PYYD2as2nCkrkVgjcZkukpNzF108IGd8J1MdioihuELfFM9WTcAi5anDj4l7RrVWS60j2xF8n12HtaseCQ7a3yJa4u7KfcT6XgGReyg76h9BZnFA4CXaIARVxQcuoHTAL2-qooSe1Z1b_XRj8uBSxISVT0gy0RihcyZL-Gf_A_oqnis4pNVQDUVLWhlKqD6-"/>
+            </div>
+
+            <!-- Right Content & Specs (5 cols) -->
+            <div class="lg:col-span-5 flex flex-col justify-between space-y-space-md lg:pl-gutter">
+              <div class="space-y-space-sm">
+                <span class="font-label-sm text-label-sm uppercase tracking-[0.22em] text-secondary font-bold">Monolithic Dining Slab</span>
+                <h3 class="font-headline-md text-headline-md text-on-surface">STELAE // 04 Travertine Dining Table</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant font-light leading-relaxed">
+                  Carved from twin solid blocks of unpolished Tivoli silver-veined travertine, forming seismic monolithic plinths that bear a 65mm thick thermo-treated smoked oak top. A poetic juxtaposition of mineral stillness and warm living fiber.
+                </p>
+              </div>
+
+              <!-- Spec Matrix Table -->
+              <div class="space-y-space-xs text-body-sm text-body-sm">
+                <div class="flex justify-between py-2 border-b border-outline-variant/30">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Dimensions</span>
+                  <span class="font-medium text-on-surface">L: 3000 x W: 1100 x H: 740 mm</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-outline-variant/30">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Total Weight</span>
+                  <span class="font-medium text-on-surface">340 kg (Stone: 260kg / Oak: 80kg)</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-outline-variant/30">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Capacity</span>
+                  <span class="font-medium text-on-surface">10 – 12 Curated Seats</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-outline-variant/30">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Production Limit</span>
+                  <span class="font-medium text-secondary font-semibold">12 Signed Pieces Per Year</span>
+                </div>
+              </div>
+
+              <div class="pt-space-xs flex items-center gap-space-md">
+                <a class="magnetic-btn bg-primary text-on-primary px-6 py-3 font-label-md text-label-md uppercase tracking-widest hover:bg-secondary transition-colors" href="#acquire-section">
+                  Request Commission Slab
+                </a>
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Ref: STL-04-TRAV</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bento Split Pair (Feature 2 & 3) -->
+          <div class="bento-grid grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+            
+            <!-- Bento Card 1: LYRA Plinth & Bench -->
+            <div class="bento-card bg-surface-container-low p-space-md sm:p-space-lg flex flex-col justify-between space-y-space-md shadow-sm">
+              <div class="overflow-hidden bg-surface-container-high aspect-[16/10] relative group">
+                <div class="absolute top-4 left-4 z-10 bg-surface/90 backdrop-blur-md px-3 py-1 font-label-sm text-label-sm uppercase tracking-widest text-on-surface font-semibold">
+                  SERIES // LYRA 02
+                </div>
+                <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Minimalist architectural bench made of a thick honed charcoal basalt stone plinth topped with an architectural ivory woven boucle wool upholstered cushion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAV54fxkamtjm1b1UewXyMCJ-JAkSLHjlldwf445uU2KT0rAZeHuYs-ei16oYuhtiH3oeSVDaz7KopuhxCPblNGVhK_LKvq4sano_-5euM6ft9nW-uLypPiv37uib1bqYiQpFb_NjXe90jO3JsyiiU3NExgeSDKC2H0G6JUTG36dRhg2g9_afes-uskFJoPRxZVaICROoYoZOH04mrN0EQC2BEjgw4743hhYQFHhl_"/>
+              </div>
+              <div class="space-y-space-xs">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Low Monolith System</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">LYRA // Bench &amp; Plinth System</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant font-light">
+                  Honed basalt lava stone plinth paired with high-density architectural memory foam clad in custom-spun heavy bouclé wool from Gotland.
+                </p>
+              </div>
+              <div class="pt-space-sm border-t border-outline-variant/30 flex items-center justify-between">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">L: 2100 • D: 550 • H: 410 mm</span>
+                <a class="magnetic-btn font-label-md text-label-md uppercase tracking-wider text-on-surface hover:text-secondary underline underline-offset-4" href="#acquire-section">Configure →</a>
+              </div>
+            </div>
+
+            <!-- Bento Card 2: CAELUM Vessel Plinth -->
+            <div class="bento-card bg-surface-container-low p-space-md sm:p-space-lg flex flex-col justify-between space-y-space-md shadow-sm">
+              <div class="overflow-hidden bg-surface-container-high aspect-[16/10] relative group">
+                <div class="absolute top-4 left-4 z-10 bg-surface/90 backdrop-blur-md px-3 py-1 font-label-sm text-label-sm uppercase tracking-widest text-on-surface font-semibold">
+                  SERIES // CAELUM BRONZE
+                </div>
+                <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Heavy cast dark patinated bronze pedestal side table with raw textured sand-cast edges, topped with an austere single ceramic vase on a smooth circular bronze plate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC047JY-hJWp_XgZEBTIIrlkG1mdunv1GhJ3y6Ez4jxOiTJoeJRO5e014qEqByEimN81XZH2jHrB4r1z8QQQCjIGMw1BCzO6zaA1CQWNSDMZSjZ2QeuIpdPJcxgFgJ-6fmkNsSH0uRXZbDrauT2AcUqFyRCWpuuOJ6__ir6ooMtHXWi4lJcFdYBjfDdqxgQlg6PBbgekWoROwnmlXti8ACvqEjj_Fvjszy8bb_4VBDD"/>
+              </div>
+              <div class="space-y-space-xs">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Lost-Wax Sand Casting</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">CAELUM // Cast Bronze Side Table</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant font-light">
+                  Solid cast bronze with hand-oxidized burnt amber patina. Every piece bears individual sand-crystallization lines from the Kyoto foundry furnace.
+                </p>
+              </div>
+              <div class="pt-space-sm border-t border-outline-variant/30 flex items-center justify-between">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Ø: 460 • H: 520 mm • 42 kg</span>
+                <a class="magnetic-btn font-label-md text-label-md uppercase tracking-wider text-on-surface hover:text-secondary underline underline-offset-4" href="#acquire-section">Configure →</a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 4: MATERIALITY & CRAFT EXPLORER (BESPOKE INTERACTIVE MATRIX) -->
+      <section class="materials-section w-full bg-surface-container py-space-xl" id="specifications">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin space-y-space-lg">
+          
+          <!-- Section Header -->
+          <div class="space-y-space-xs">
+            <span class="font-label-sm text-label-sm uppercase tracking-[0.24em] text-secondary font-semibold">Tactile Archetype Matrix</span>
+            <h2 class="font-headline-lg text-headline-lg font-normal text-on-surface">Architectural Materiality</h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant font-light max-w-2xl">
+              We work exclusively with unvarnished, raw-sourced minerals, timber, and metallurgical compounds selected for their ability to record light and time.
+            </p>
+          </div>
+
+          <!-- Material Swatch Tabs Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md" id="material-selector-cards">
+            
+            <!-- Swatch 01: Saddle Leather -->
+            <div class="material-card cursor-pointer bg-surface p-space-md transition-all duration-200 border-2 border-primary shadow-sm" onclick="selectMaterial(0)">
+              <div class="flex items-center justify-between pb-space-sm">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold">SPEC 01 // LEATHER</span>
+                <span class="w-3 h-3 rounded-full bg-secondary"></span>
+              </div>
+              <div class="w-full h-32 bg-surface-container-high overflow-hidden mb-space-sm">
+                <img class="w-full h-full object-cover" alt="Extreme macro photograph of full-grain saddle cognac brown harness leather with organic natural grain texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGh_Jz7ttSBdnd8aF_xwGWxhwxegXoExzcpWnKMGrvFzXNuJnPELD4xrwQJ0MpZ8HgX5vH4LpiZW7TdT9HoU5YPZdDBMnpwPcTfkKyu4-iw93ZgntEgaaz5GLbDGhjza1ieHfEb0RvLCW89U5G0KYtfW8IP_ilcKAbyB5R4kbB-oBFfmolw-hqNSYlz1tTqWy7FJGF2uj8LKNMr_GMPqgW_kgq86BcPB1ljmHBAAsX"/>
+              </div>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface">Cognac Harness Hide</h4>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Vegetable tanned in Sweden using mimosa bark extracts.</p>
+            </div>
+
+            <!-- Swatch 02: Roman Travertine -->
+            <div class="material-card cursor-pointer bg-surface p-space-md transition-all duration-200 border-2 border-transparent hover:border-outline-variant shadow-sm" onclick="selectMaterial(1)">
+              <div class="flex items-center justify-between pb-space-sm">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">SPEC 02 // MINERAL</span>
+                <span class="w-3 h-3 rounded-full bg-surface-dim"></span>
+              </div>
+              <div class="w-full h-32 bg-surface-container-high overflow-hidden mb-space-sm">
+                <img class="w-full h-full object-cover" alt="Macro close-up of unpolished porous Roman travertine stone with natural fissures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvOKHxHGyrwu0nSkYcnR2EpLtEytCpunsEtRoLdOsOoLLpCIi1Ki41JMho8fQh7BfMLnBc143sFZq_LbqFD1yqR1h1gZU7GlFn4yfOtC5i7_yXMrrOvNzuXptTPI-1U5iFXTZDoY-h-JwcDYx1F0GIt7jnT6zYcWgnSDUFtJbbUDxuxRefnqLEYb-x-C8Hcua9QZ8asSS505wIX8e0pKHmSdwMnj_Jczyw0hwhqK9s"/>
+              </div>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface">Silver-Vein Travertine</h4>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Directly extracted from Tivoli mountain quarries, unsealed cavities.</p>
+            </div>
+
+            <!-- Swatch 03: Smoked Oak -->
+            <div class="material-card cursor-pointer bg-surface p-space-md transition-all duration-200 border-2 border-transparent hover:border-outline-variant shadow-sm" onclick="selectMaterial(2)">
+              <div class="flex items-center justify-between pb-space-sm">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">SPEC 03 // FIBER</span>
+                <span class="w-3 h-3 rounded-full bg-surface-dim"></span>
+              </div>
+              <div class="w-full h-32 bg-surface-container-high overflow-hidden mb-space-sm">
+                <img class="w-full h-full object-cover" alt="Detailed macro texture of deep smoked bog oak wood with deep espresso charcoal tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDs415CbO4yxKTsXZrmpo3iRTHbReZ7AOn6Jh25W2QuBptVl9Z5H-qGLBS5-vfGpgMhyu_7ZAD4dRcsLUwHntILjuw1HB_Cim_WJzQ5IIfrhObOrKMEUfhYaQTRTgVd3dEydvjeriQLDvNWd4BpWqQrdCLfmgYIj8HACmwWcGxwQHMQ0HIRv2u_e_PesTVQPYmbe86GBSKSpoJXdZIUUYTdan3fWjYmBGjNISgGa3G"/>
+              </div>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface">Fumed Nordic Oak</h4>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Thermo-fumed core saturation finished with non-toxic beeswax.</p>
+            </div>
+
+            <!-- Swatch 04: Cast Bronze -->
+            <div class="material-card cursor-pointer bg-surface p-space-md transition-all duration-200 border-2 border-transparent hover:border-outline-variant shadow-sm" onclick="selectMaterial(3)">
+              <div class="flex items-center justify-between pb-space-sm">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">SPEC 04 // METALLURGY</span>
+                <span class="w-3 h-3 rounded-full bg-surface-dim"></span>
+              </div>
+              <div class="w-full h-32 bg-surface-container-high overflow-hidden mb-space-sm">
+                <img class="w-full h-full object-cover" alt="Macro detailed texture of hand-patinated dark bronze metal with brushed golden-brown undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoFSX8rsykukw9qfC7XELzQHSbE1aD6rqQfX5nHPjr8a34Y0zXewcSMkUEmyPvLzm1JpqT0hyTw8hsqAO-ZH0YhBoQ6LDtPb-IBfnGAvLxJ3ykkQJY1oLUtRUhHb9QGrvHycJ3wmpCDCR5QpdZhwWNGUCAvlMUlrtXx97VorhzdBw7hKoYzpEWFSKQsiv1Sw_SHOlrWmFcapoXn4hsLN7qgpvvDzs5eH8cREc8BuKV"/>
+              </div>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface">Oxidized Sand Bronze</h4>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Cast in Kyoto foundries using traditional open sand moulds.</p>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Detailed Spec Ledger for Selected Material -->
+          <div class="bg-surface p-space-lg shadow-sm" id="material-spec-hud">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+              <div class="lg:col-span-4 space-y-space-xs">
+                <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold" id="mat-hud-tag">SPEC 01 // LEATHER</span>
+                <h3 class="font-headline-md text-headline-md text-on-surface" id="mat-hud-name">Full-Grain Cognac Saddle Leather</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant font-light" id="mat-hud-desc">
+                  Originating from pasture-grazed Scandinavian cattle, slowly conditioned in oak bark pits for 12 weeks. Retains natural insect scars and fat creases, allowing deep honeyed patination within 18 months of room-climate seasoning.
+                </p>
+              </div>
+              <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-space-md bg-surface-container-low p-space-md">
+                <div>
+                  <span class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Thickness / Gauge</span>
+                  <span class="font-label-md text-label-md uppercase text-on-surface font-bold" id="mat-hud-gauge">3.8 – 4.2 MM</span>
+                  <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Heavy Harness Spec</span>
+                </div>
+                <div>
+                  <span class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Origin Provenance</span>
+                  <span class="font-label-md text-label-md uppercase text-on-surface font-bold" id="mat-hud-origin">Tärnsjö, Sweden</span>
+                  <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">ISO 14001 Tannery</span>
+                </div>
+                <div>
+                  <span class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Surface Reflection</span>
+                  <span class="font-label-md text-label-md uppercase text-on-surface font-bold" id="mat-hud-sheen">6% Specular</span>
+                  <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Diffuse Organic Matte</span>
+                </div>
+                <div>
+                  <span class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Maintenance Cycle</span>
+                  <span class="font-label-md text-label-md uppercase text-secondary font-bold" id="mat-hud-care">Biannual Wax Balm</span>
+                  <span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Organic Lanolin</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 5: BESPOKE COMMISSIONING & ACQUISITION SUITE -->
+      <section class="w-full bg-surface py-space-xl" id="acquire-section">
+        <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin">
+          <div class="bg-surface-container-high p-space-md sm:p-space-lg lg:p-space-xl shadow-lg">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+              
+              <!-- Left Column: Acquisition Concierge Info (5 Cols) -->
+              <div class="acquire-info lg:col-span-5 flex flex-col justify-between space-y-space-lg pr-0 lg:pr-space-md">
+                <div class="space-y-space-sm">
+                  <span class="font-label-sm text-label-sm uppercase tracking-[0.24em] text-secondary font-semibold">Atelier Commissioning</span>
+                  <h2 class="font-headline-lg text-headline-lg font-normal text-on-surface leading-tight">
+                    Acquire or <br/>
+                    <em class="italic font-light">Commission an Icon.</em>
+                  </h2>
+                  <p class="font-body-lg text-body-lg text-on-surface-variant font-light">
+                    Each piece is custom registered in the AURA Studio Registry with an engraved brass archival badge and signed certification from the principal architects.
+                  </p>
+                </div>
+
+                <!-- Edition Quota & Status Box -->
+                <div class="bg-surface p-space-md space-y-space-xs shadow-sm">
+                  <div class="flex items-center justify-between">
+                    <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Current Cycle</span>
+                    <span class="font-label-sm text-label-sm uppercase bg-secondary/10 text-secondary px-2 py-0.5 font-bold">AUTUMN / WINTER 2026</span>
+                  </div>
+                  <div class="w-full bg-surface-container h-2 mt-2">
+                    <div class="quota-progress-bar bg-primary h-2 w-[72%]"></div>
+                  </div>
+                  <div class="flex justify-between font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant pt-1">
+                    <span>18 / 25 Pieces Allocated</span>
+                    <span class="text-on-surface font-semibold">7 Slots Open</span>
+                  </div>
+                </div>
+
+                <!-- Direct Concierge Contact -->
+                <div class="space-y-space-xs text-on-surface font-label-sm text-label-sm uppercase tracking-wider">
+                  <div class="flex items-center gap-2 text-secondary">
+                    <span class="material-symbols-outlined text-[18px]">verified</span>
+                    <span>White-Glove Global Architectural Freight Included</span>
+                  </div>
+                  <p class="text-on-surface-variant">Private viewings by appointment: Copenhagen Frihavnen • Kyoto Kamigyo</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Interactive Bespoke Request Form (7 Cols) -->
+              <div class="acquire-form-wrapper lg:col-span-7 bg-surface p-space-md sm:p-space-lg shadow-sm">
+                <form class="space-y-space-md" onsubmit="handleInquirySubmit(event)">
+                  
+                  <!-- 01 // Select Object of Interest -->
+                  <div class="border-b border-outline-variant/30 pb-space-sm">
+                    <span class="font-label-md text-label-md uppercase tracking-[0.2em] text-on-surface font-bold block mb-space-xs">
+                      01 // Select Object of Interest
+                    </span>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs">
+                      <label class="flex items-center gap-2 p-3 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+                        <input checked="" class="accent-primary" name="piece" type="radio" value="KORD 01 Lounge"/>
+                        <span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface">KORD // 01 Chair</span>
+                      </label>
+                      <label class="flex items-center gap-2 p-3 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+                        <input class="accent-primary" name="piece" type="radio" value="STELAE 04 Dine"/>
+                        <span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface">STELAE // 04 Table</span>
+                      </label>
+                      <label class="flex items-center gap-2 p-3 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+                        <input class="accent-primary" name="piece" type="radio" value="LYRA / CAELUM"/>
+                        <span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface">LYRA &amp; Objects</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- 02 // Timber & Stone Specification -->
+                  <div class="border-b border-outline-variant/30 pb-space-sm">
+                    <span class="font-label-md text-label-md uppercase tracking-[0.2em] text-on-surface font-bold block mb-space-xs">
+                      02 // Timber &amp; Stone Specification
+                    </span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs font-label-sm text-label-sm uppercase">
+                      <label class="flex items-center gap-2 p-2.5 bg-surface-container-low cursor-pointer hover:bg-surface-container">
+                        <input checked="" class="accent-primary" type="checkbox"/>
+                        <span>Cognac Hide</span>
+                      </label>
+                      <label class="flex items-center gap-2 p-2.5 bg-surface-container-low cursor-pointer hover:bg-surface-container">
+                        <input class="accent-primary" type="checkbox"/>
+                        <span>Smoked Oak</span>
+                      </label>
+                      <label class="flex items-center gap-2 p-2.5 bg-surface-container-low cursor-pointer hover:bg-surface-container">
+                        <input class="accent-primary" type="checkbox"/>
+                        <span>Roman Stone</span>
+                      </label>
+                      <label class="flex items-center gap-2 p-2.5 bg-surface-container-low cursor-pointer hover:bg-surface-container">
+                        <input class="accent-primary" type="checkbox"/>
+                        <span>Cast Bronze</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- 03 // Collector / Curator Details -->
+                  <div class="space-y-space-sm pt-space-xs">
+                    <span class="font-label-md text-label-md uppercase tracking-[0.2em] text-on-surface font-bold block">
+                      03 // Private Collector Registry
+                    </span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+                      <div>
+                        <label class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mb-1">Full Legal Name</label>
+                        <input class="w-full bg-surface-container-low px-4 py-3 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container" placeholder="E.g., Baroness E. von Berg" required="" type="text"/>
+                      </div>
+                      <div>
+                        <label class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mb-1">Email Coordinates</label>
+                        <input class="w-full bg-surface-container-low px-4 py-3 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container" placeholder="curator@residence.com" required="" type="email"/>
+                      </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+                      <div>
+                        <label class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mb-1">Architectural Firm / Affiliation</label>
+                        <input class="w-full bg-surface-container-low px-4 py-3 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container" placeholder="Studio / Private Commission" type="text"/>
+                      </div>
+                      <div>
+                        <label class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mb-1">Delivery Destination (City / Country)</label>
+                        <input class="w-full bg-surface-container-low px-4 py-3 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container" placeholder="Zurich, Switzerland" required="" type="text"/>
+                      </div>
+                    </div>
+                    <div>
+                      <label class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mb-1">Spatial Context or Custom Dimensions</label>
+                      <textarea class="w-full bg-surface-container-low px-4 py-3 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container" placeholder="Provide notes regarding spatial lighting, ceiling clearances, or complementary room finishes..." rows="3"></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Submit Button and Guarantee -->
+                  <div class="pt-space-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm">
+                    <button class="magnetic-btn bg-primary text-on-primary px-8 py-4 font-label-md text-label-md uppercase tracking-[0.2em] hover:bg-secondary transition-colors text-center shadow-md cursor-pointer" id="submit-btn" type="submit">
+                      Transmit Architectural Request
+                    </button>
+                    <div class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant text-right">
+                      <span>Confidentiality Assured</span> • <span>Concierge SLA: 24h</span>
+                    </div>
+                  </div>
+
+                  <!-- Submission Confirmation Feedback -->
+                  <div class="hidden p-4 bg-surface-container text-on-surface border-l-4 border-secondary space-y-1" id="form-success">
+                    <p class="font-label-md text-label-md uppercase tracking-widest font-bold text-secondary">Dispatch Received — Studio Confirmation Sent</p>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">The Head of Acquisitions in Copenhagen will contact you within 24 hours with certified timber/stone provenance records and fabrication timeline.</p>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-surface-container-low">
+    <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin pt-space-xl pb-space-lg">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter mb-space-xl">
+        
+        <!-- Left: Brand statement with Vector Logo -->
+        <div class="lg:col-span-4 flex flex-col justify-between pr-gutter">
+          <div class="space-y-space-md">
+            <div class="flex items-center gap-space-sm">
+              <svg class="h-6 w-6 flex-shrink-0" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AURA Architectural Forms Logo">
+                <path d="M6 30V14C6 7.373 11.373 2 18 2C24.627 2 30 7.373 30 14V30" stroke="#1c1c18" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M12 30V15C12 11.686 14.686 9 18 9C21.314 9 24 11.686 24 15V30" stroke="#94492a" stroke-width="2" stroke-linecap="round"/>
+                <line x1="4" y1="30" x2="32" y2="30" stroke="#1c1c18" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="18" cy="19" r="2.5" fill="#94492a"/>
+              </svg>
+              <span class="font-label-md text-label-md uppercase tracking-[0.22em] text-on-surface font-semibold">AURA // STUDIO</span>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+              Spatial sculpture and tactile brutalist forms carved from solid travertine, smoked oak, cast bronze, and architectural linen.
+            </p>
+          </div>
+          <div class="pt-space-md">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant block mb-1">Atelier &amp; Gallery</span>
+            <p class="font-body-sm text-body-sm text-on-surface">Frihavnen 42, 2150 Nordhavn — Copenhagen</p>
+          </div>
+        </div>
+
+        <!-- Col 2: Collections -->
+        <div class="lg:col-span-2 space-y-space-md">
+          <span class="font-label-sm text-label-sm uppercase tracking-[0.16em] text-on-surface font-semibold block">Collections</span>
+          <ul class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant">
+            <li><a class="hover:text-on-surface transition-colors block py-0.5" href="#collection">Monolithic Chairs</a></li>
+            <li><a class="hover:text-on-surface transition-colors block py-0.5" href="#collection">Slab Tables</a></li>
+            <li><a class="hover:text-on-surface transition-colors block py-0.5" href="#collection">Spatial Sculptures</a></li>
+            <li><a class="hover:text-on-surface transition-colors block py-0.5" href="#collection">Cast Vessels</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Philosophy -->
+        <div class="lg:col-span-2 space-y-space-md">
+          <span class="font-label-sm text-label-sm uppercase tracking-[0.16em] text-on-surface font-semibold block">Philosophy</span>
+          <ul class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant">
+            <li><a class="hover:text-on-surface transition-colors block py-0.5" href="#studio">Architectural Studio</a></li>
+            <li><a class="hover:text-on-surface transition-colors block py-0.5" href="#specifications">Tactile Joinery</a></li>
+            <li><a class="hover:text-on-surface transition-colors block py-0.5" href="#specifications">Travertine Archives</a></li>
+            <li><a class="hover:text-on-surface transition-colors block py-0.5" href="#acquire-section">Acquisitions</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Dispatch -->
+        <div class="lg:col-span-4 space-y-space-md">
+          <span class="font-label-sm text-label-sm uppercase tracking-[0.16em] text-on-surface font-semibold block">Curator Dispatch</span>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            Private notices regarding limited casting cycles, monumental commissions, and salon viewings.
+          </p>
+          <form class="flex flex-col sm:flex-row gap-space-xs pt-space-xs" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓';">
+            <input class="bg-surface-container px-4 py-3 font-label-sm text-label-sm uppercase tracking-widest text-on-surface placeholder:text-outline focus:outline-none flex-1" placeholder="CURATOR EMAIL" required="" type="email"/>
+            <button class="bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-widest px-6 py-3 hover:bg-secondary hover:text-on-secondary transition-colors cursor-pointer" type="submit">
+              Dispatch
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Copyright Sub-Footer -->
+      <div class="pt-space-md flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">
+        <p>© 2026 AURA ARCHITECTURAL FORMS. ALL RIGHTS RESERVED.</p>
+        <div class="flex items-center gap-space-md">
+          <span>Copenhagen</span>
+          <span>•</span>
+          <span>Kyoto</span>
+          <span>•</span>
+          <span>Zurich</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Animation Engine -->
+  <script src="js/aura-gsap.js"></script>
+</body>
+</html>
