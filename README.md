@@ -1,6 +1,11 @@
 # AURA // Architectural Furniture Showcase & AERO//01 Sneaker Showcase
 ### Pixel-Perfect Implementations with GSAP & Tailwind CSS
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen?style=for-the-badge&logo=github)](https://femishhin.github.io/GSAP-demo/)
+
+> 🔗 **Live Demo (Main)**: [https://femishhin.github.io/GSAP-demo/](https://femishhin.github.io/GSAP-demo/)  
+> 👟 **AERO Companion Showcase**: [https://femishhin.github.io/GSAP-demo/aero.html](https://femishhin.github.io/GSAP-demo/aero.html)
+
 This project contains pixel-perfect interactive web implementations extracted directly from Google Stitch prototypes (Project ID: `12728817311810952964`), animated with **GSAP 3.12+** and **ScrollTrigger**.
 
 ---
@@ -8,6 +13,7 @@ This project contains pixel-perfect interactive web implementations extracted di
 ## 🌟 Pages Overview
 
 ### 1. **AURA // Architectural Furniture Showcase** (`index.html`) — *Primary Requested Page*
+- **Live URL**: [https://femishhin.github.io/GSAP-demo/](https://femishhin.github.io/GSAP-demo/)
 - **Design Link**: [Google Stitch Preview (Node: 8bea1f9c1ff04b259985787515713837)](https://stitch.google.com/preview/12728817311810952964?node-id=8bea1f9c1ff04b259985787515713837&raw=1)
 - **Palette**: Natural oat paper background (`#fcf9f3`), rich carbon black (`#1c1c18`), warm cognac/terracotta accent (`#94492a`).
 - **Typography**: `Newsreader` (Editorial Serif) paired with `Hanken Grotesk` and `Space Grotesk`.
@@ -23,6 +29,7 @@ This project contains pixel-perfect interactive web implementations extracted di
 ---
 
 ### 2. **AERO//01 Sneaker Showcase** (`aero.html`) — *Companion Showcase*
+- **Live URL**: [https://femishhin.github.io/GSAP-demo/aero.html](https://femishhin.github.io/GSAP-demo/aero.html)
 - **Design Link**: [Google Stitch Project (Node: d1792eeee1924a6fa05ebb29ceb6315b)](https://stitch.google.com/projects/12728817311810952964)
 - **Palette**: Deep charcoal `#090a09`, electric lime accent `#bef532` / `#c7ff3d`.
 - **Typography**: `Barlow Condensed` with `DM Sans`.
@@ -40,27 +47,6 @@ This project contains pixel-perfect interactive web implementations extracted di
 
 ## 🚀 How to View the Demo:
 
-### Option A: Via WAMP Server (Localhost)
-1. Ensure your **WAMP Server** is running.
-2. Open your browser:
-   - **AURA Furniture Showcase**: [http://localhost/gasp-demo/](http://localhost/gasp-demo/)
-   - **AERO Sneaker Showcase**: [http://localhost/gasp-demo/aero.html](http://localhost/gasp-demo/aero.html)
-
-### Option B: Direct in Browser
-Open [index.html](file:///d:/wamp64/www/gasp-demo/index.html) or [aero.html](file:///d:/wamp64/www/gasp-demo/aero.html) directly in Chrome or Edge.
-
----
-
-## 📁 File Structure
-
-```text
-d:\wamp64\www\gasp-demo\
-├── index.html          # AURA Architectural Furniture Showcase (Main)
-├── aero.html           # AERO//01 Sneaker Showcase (Companion)
-├── css/
-│   └── styles.css      # Custom scrollbar, cursor follower, text masking, and bottom-right switcher
-├── js/
-│   ├── aura-gsap.js    # Fail-safe GSAP timeline, ScrollTrigger, HUD transitions & counters
-│   └── aero-gsap.js    # GSAP animations, hero floating loop & colorway switcher
-└── README.md           # Documentation
-```
+### 🌐 Live Demo (GitHub Pages)
+- **AURA Furniture Showcase**: [https://femishhin.github.io/GSAP-demo/](https://femishhin.github.io/GSAP-demo/)
+- **AERO Sneaker Showcase**: [https://femishhin.github.io/GSAP-demo/aero.html](https://femishhin.github.io/GSAP-demo/aero.html) 
