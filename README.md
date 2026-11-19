@@ -14,7 +14,6 @@ This project contains pixel-perfect interactive web implementations extracted di
 
 ### 1. **AURA // Architectural Furniture Showcase** (`index.html`) — *Primary Requested Page*
 - **Live URL**: [https://femishhin.github.io/GSAP-demo/](https://femishhin.github.io/GSAP-demo/)
-- **Design Link**: [Google Stitch Preview (Node: 8bea1f9c1ff04b259985787515713837)](https://stitch.google.com/preview/12728817311810952964?node-id=8bea1f9c1ff04b259985787515713837&raw=1)
 - **Palette**: Natural oat paper background (`#fcf9f3`), rich carbon black (`#1c1c18`), warm cognac/terracotta accent (`#94492a`).
 - **Typography**: `Newsreader` (Editorial Serif) paired with `Hanken Grotesk` and `Space Grotesk`.
 - **Pixel-Perfect Fixes & Features**:
@@ -29,8 +28,7 @@ This project contains pixel-perfect interactive web implementations extracted di
 ---
 
 ### 2. **AERO//01 Sneaker Showcase** (`aero.html`) — *Companion Showcase*
-- **Live URL**: [https://femishhin.github.io/GSAP-demo/aero.html](https://femishhin.github.io/GSAP-demo/aero.html)
-- **Design Link**: [Google Stitch Project (Node: d1792eeee1924a6fa05ebb29ceb6315b)](https://stitch.google.com/projects/12728817311810952964)
+- **Live URL**: [https://femishhin.github.io/GSAP-demo/aero.html](https://femishhin.github.io/GSAP-demo/aero.html) 
 - **Palette**: Deep charcoal `#090a09`, electric lime accent `#bef532` / `#c7ff3d`.
 - **Typography**: `Barlow Condensed` with `DM Sans`.
 - **Pixel-Perfect Fixes & Features**:
